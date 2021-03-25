@@ -7,3 +7,11 @@ cout << /*"*/"*/" << endl;
 cout <</* "*/" /* "/*" */ << endl;
 ```
 
+报错：
+
+```
+error C2001: 常量中有换行符
+1>E:\c++\Cppstudy\C++Primer\ch01\Output nesting\practice1.18.cpp(11,2): error C2146: 语法错误: 缺少“;”(在标识符“cout”的前面)
+```
+
+在第一行程序中再加一个双引号即可解决。
