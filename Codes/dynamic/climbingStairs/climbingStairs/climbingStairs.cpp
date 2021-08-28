@@ -16,15 +16,20 @@ public:
     int climbingStairs(int n)
     {
         // 因为直接循环到n，所以大小为n+1
-        vector<int> dp(n + 1, 0);
+        //vector<int> dp(n + 1, 0);
         // 这种写法时间复杂度和空间复杂度都是O(N)
+        int dp[3];
         dp[1] = 1;
         dp[2] = 2;
         for (int i = 3; i <= n ; i++)
         {
-            dp[i] = dp[i - 1] + dp[i - 2];
+            //dp[i] = dp[i - 1] + dp[i - 2];
+            // 优化一下空间复杂度
+            int sum = dp[1] + dp[2];
+            dp[1] = dp[2];
+            dp[2] = sum;
         }
-        return dp[n];
+        return dp[2];
     }
 };
 int main()
