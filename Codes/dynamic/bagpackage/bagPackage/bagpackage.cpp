@@ -16,6 +16,7 @@ class solution
 public:
     int bagpackage(vector<int>& weight, vector<int>& value, int &max_weight)
     {
+        /*
         int n = weight.size();
         vector<vector<int> > dp(n, vector<int>(max_weight + 1, 0));
         // 初始化
@@ -39,7 +40,23 @@ public:
             }
         }
         cout << dp[weight.size() - 1][max_weight] << endl;
-        return dp[weight.size() - 1][max_weight];
+        return dp[weight.size() - 1][max_weight];*/
+        // 采用一维数组来进行动态规划
+        // 初始化
+        vector<int> dp(max_weight + 1, 0);
+        // 递推公式，因为背包为了避免上一层值被覆盖，采用倒叙的方式来循环，所以不需要判断大小是否可以放入
+        // dp[j] = max(dp[j], dp[j-weight[i]+value[i])
+        // 遍历顺序，先物品后背包，背包采用倒叙的方式
+        for (int i = 0; i < weight.size(); i++)
+        {
+            for (int j = max_weight; j >= weight[i]; j--)
+            {
+                dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+            }
+        }
+        cout << dp[max_weight] << endl;
+        return dp[max_weight];
+
 
     }
 };
