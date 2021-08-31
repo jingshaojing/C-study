@@ -14,7 +14,7 @@ public:
         {
             sum += ch;
         }
-        if (sum / 2 == 1) return false;
+        //if (sum / 2 == 1) return false;
         int target = sum / 2;
         // 规定数组元素不超过30，且大小不超过1000，并全部初始为0.
         vector<int> dp(15001, 0);
