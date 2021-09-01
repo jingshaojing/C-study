@@ -21,7 +21,9 @@ public:
         dp[0][1] = 0;
         for (int i = 1; i < nums.size(); i++)
         {
-            dp[i][0] = max(dp[i - 1][0], -nums[i]);
+            //dp[i][0] = max(dp[i - 1][0], -nums[i]);
+            // 如果可以买卖多次，那这里就会发生变化，主要体现在持有股票可能包含之前的利润
+            dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] - nums[i]);
             dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] + nums[i]);
         }
         return dp[nums.size() - 1][1];
