@@ -15,7 +15,9 @@ private:
             result.push_back(path);
             return;
         }
-        for (int i = startIndex; i <= n;  i++)
+        // 改进的剪枝操作
+        //for (int i = startIndex; i <= n;  i++)
+        for(int i = startIndex; i <= n - (k - path.size()) +1; i++)
         {
             path.push_back(i);
             backtracking(n, k, i + 1);
