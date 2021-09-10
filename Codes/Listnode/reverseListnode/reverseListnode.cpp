@@ -1,6 +1,7 @@
-// 翻转链表等操作，采用设置一个虚拟头结点的方式
+// 翻转链表等操作，采用设置一个虚拟头结点的方式 (1)
 // 再增加一个判断回文链表的功能
-// 翻转链表可以转到数组里面去判断是不是回文
+// 翻转链表可以转到数组里面去判断是不是回文(2)
+// 增加删除链表指定值
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -43,6 +44,31 @@ void printfListnode(Listnode* head)
 class solution
 {
 public:
+    Listnode* removeDuplicates(Listnode* head, int target)
+    {
+        // 删除需要定义虚拟头结点
+        Listnode* dummy = new Listnode(0);
+        dummy->next = head;
+        Listnode* cur = dummy;
+        // 这里必须是 cur->next != nullptr. 如果！cur->next会被认为是NULL，没有删除掉
+        while (cur->next != nullptr)
+        {
+            if (cur->next->val == target)
+            {
+                Listnode* temp = cur->next;
+                cur->next = cur->next->next;
+                delete temp;
+            }
+            else
+            {
+                cur = cur->next;
+            }
+        }
+        head = dummy->next;
+        delete dummy;
+        return head;
+
+    }
     bool isPanlinList(Listnode* head)
     {
         if (head == nullptr && head->next == nullptr)
@@ -103,9 +129,12 @@ int main()
             break;
         }
     }
+    int target;
+    cin >> target;
     Listnode* l1 = creatListnode(num);
-    bool result =  solution().isPanlinList(l1);
-    //printfListnode(l2);
-    cout << result << endl;
+    Listnode* l2 = solution().removeDuplicates(l1, target);
+    //bool result =  solution().isPanlinList(l1);
+    printfListnode(l2);
+    //cout << result << endl;
     return 0;
 }
