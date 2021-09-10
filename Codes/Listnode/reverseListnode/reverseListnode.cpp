@@ -50,9 +50,13 @@ public:
         Listnode* cur = head;
         while (cur)
         {
+            // 在改变之前保存cur->next;
             temp = cur->next;
+            // cur->next改变指向
             cur->next = pre;
+            // 更新pre为当前值
             pre = cur;
+            // 更新cur为下一个值
             cur = temp;
         }
         return pre;
