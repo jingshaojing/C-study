@@ -1,4 +1,6 @@
 // 翻转链表等操作，采用设置一个虚拟头结点的方式
+// 再增加一个判断回文链表的功能
+// 翻转链表可以转到数组里面去判断是不是回文
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -41,6 +43,33 @@ void printfListnode(Listnode* head)
 class solution
 {
 public:
+    bool isPanlinList(Listnode* head)
+    {
+        if (head == nullptr && head->next == nullptr)
+        {
+            return true;
+        }
+        Listnode* slow = head; // 记录中间的位置
+        Listnode* fast = head;
+        Listnode* prev = head; // 慢指针的前一个节点用来分割
+        while (fast && fast ->next)
+        {
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        prev->next = nullptr; // 分割链表。
+        Listnode* cur1 = head;
+        Listnode* cur2 = reverseList(slow);
+        while (cur1)
+        {
+            if (cur1->val != cur2->val) return false;
+            cur1 = cur1->next;
+            cur2 = cur2->next;
+        }
+        return true;
+
+    }
     Listnode* reverseList(Listnode* head)
     {
         //Listnode* dummyHead = new Listnode(0);
@@ -74,9 +103,9 @@ int main()
             break;
         }
     }
-    Listnode* l1 =creatListnode(num);
-    Listnode* l2;
-    l2 = solution().reverseList(l1);
-    printfListnode(l2);
+    Listnode* l1 = creatListnode(num);
+    bool result =  solution().isPanlinList(l1);
+    //printfListnode(l2);
+    cout << result << endl;
     return 0;
 }
