@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <stack>
 using namespace std;
 struct Treenode
 {
@@ -40,6 +41,95 @@ public:
         postorder_traverse(cur->right, vec);
         vec.push_back(cur->val);
     }
+    vector<int> preOrderTraverse_iteration(Treenode* root)
+    {
+        vector<int> result;
+        stack<Treenode*> sta;
+        if (root != nullptr)
+        {
+            sta.push(root);
+        }
+        while (!sta.empty())
+        {
+            Treenode* temp = sta.top();
+            if (temp != NULL)
+            {
+                sta.pop();
+                if (temp->right) sta.push(temp->right);
+                if (temp->left)  sta.push(temp->left);
+                sta.push(temp);
+                sta.push(NULL);
+            }
+            else
+            {
+                sta.pop();
+                temp = sta.top();
+                sta.pop();
+                result.push_back(temp->val);
+            }
+        }
+        return result;
+    }
+    // 迭代法中序遍历
+    vector<int> inOrderTraverse_iteration(Treenode* root)
+    {
+        vector<int> result;
+        stack<Treenode*> sta;
+        if (root != nullptr)
+        {
+            sta.push(root);
+        }
+        while (!sta.empty())
+        {
+            Treenode* temp = sta.top();
+            if (temp != NULL)
+            {
+                sta.pop();
+                if (temp->right) sta.push(temp->right);
+                sta.push(temp);
+                sta.push(NULL);
+                if (temp->left) sta.push(temp->left);
+            }
+            else
+            {
+                sta.pop();
+                temp = sta.top();
+                sta.pop();
+                result.push_back(temp->val);
+            }
+        }
+        return result;
+    }
+    // 迭代法后续遍历
+    vector<int> postOrderTraverse(Treenode* root)
+    {
+        vector<int> result;
+        stack<Treenode*> sta;
+        if (root != nullptr)
+        {
+            sta.push(root);
+        }
+        while (!sta.empty())
+        {
+            Treenode* temp = sta.top();
+            if (temp != NULL)
+            {
+                sta.pop();
+                sta.push(temp);
+                sta.push(NULL);
+                if (temp->left) sta.push(temp->left);
+                if (temp->right) sta.push(temp->right);
+            }
+            else
+            {
+                sta.pop();
+                temp = sta.top();
+                sta.pop();
+                result.push_back(temp->val);
+            }
+        }
+        return result;
+    }
     vector<int> traverse(Treenode* root)
     {
         vector<int> result;
@@ -71,6 +161,7 @@ public:
         root->right = traverse_creatTree(right_inorder, right_postorder);
         return root;      
     }
+    // 构造二叉树
     Treenode* buildTree(vector<int>& inorder, vector<int>& postorder)
     {
         if (inorder.size() == 0 || postorder.size() == 0) return NULL;
