@@ -161,11 +161,33 @@ public:
         root->right = traverse_creatTree(right_inorder, right_postorder);
         return root;      
     }
-    // 构造二叉树
+    // 中序后序构造二叉树，前序和中序也可以构建
     Treenode* buildTree(vector<int>& inorder, vector<int>& postorder)
     {
         if (inorder.size() == 0 || postorder.size() == 0) return NULL;
         return traverse_creatTree(inorder, postorder);
+    }
+    // 数组构造
+    Treenode* constuct_tree(const vector<int>& nums)
+    {
+        vector<Treenode*> vecTree(nums.size(), NULL);
+        Treenode* root = NULL;
+        for (int i = 0; i < nums.size(); i++)
+        {
+            Treenode* node = NULL;
+            if (nums[i] != -1) node = new Treenode(nums[i]);
+            vecTree[i] = node;
+            if (i == 0) root = node;
+        }
+        for (int i = 0; i*2 + 2 < nums.size(); i++)
+        {
+            if (vecTree[i] != NULL)
+            {
+                vecTree[i]->left = vecTree[i * 2 + 1];
+                vecTree[i]->right = vecTree[i * 2 + 2];
+            }
+        }
+        return root;
     }
 };
 int main()
@@ -178,12 +200,14 @@ int main()
         inorder.push_back(number);
         if (cin.get() == '\n') break;
     }
-    while (cin >> number)
-    {
-        postorder.push_back(number);
-        if (cin.get() == '\n') break;
-    }
-    Treenode* root = solution().buildTree(inorder, postorder);
+    //while (cin >> number)
+    //{
+    //    postorder.push_back(number);
+     //   if (cin.get() == '\n') break;
+    //}
+    //Treenode* root = solution().buildTree(inorder, postorder);
+    // 数组构造二叉树之后，构造规则其实是层序遍历
+    Treenode* root = solution().constuct_tree(inorder);
     solution().postorder_traverse(root, result);
     for (auto ch : result)
     {
