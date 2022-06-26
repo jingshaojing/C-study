@@ -1,7 +1,8 @@
 // 翻转链表等操作，采用设置一个虚拟头结点的方式 (1)
 // 再增加一个判断回文链表的功能
 // 翻转链表可以转到数组里面去判断是不是回文(2)
-// 增加删除链表指定值
+// 增加删除链表指定值（3）
+// 判断两个链表是否相交（4）
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -44,6 +45,11 @@ void printfListnode(Listnode* head)
 class solution
 {
 public:
+    Listnode* getInsertionNode(Listnode* head1, Listnode* head2)
+    {
+        // 返回链表相交的起始节点，否则返回NULL
+
+    }
     Listnode* removeDuplicates(Listnode* head, int target)
     {
         // 删除需要定义虚拟头结点

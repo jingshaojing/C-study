@@ -189,6 +189,15 @@ public:
         }
         return root;
     }
+    bool isvalid_binary_search_tree(Treenode* root)
+    {
+        inorder_traverse(root);
+        for(int i = 1; i < vec.size(); i++)
+        {
+            if(vec[i] <= vec[i-1]) retutn false; 
+        }
+        return true;
+    }
 };
 int main()
 {

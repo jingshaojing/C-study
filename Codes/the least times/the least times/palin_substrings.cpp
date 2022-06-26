@@ -1,34 +1,31 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <utility>
 using namespace std;
 int main(void)
 {
-    string s("cabbac");
-    vector<vector<bool> > dp(s.size(), vector<bool>(s.size(), false));
-    int result = 0;
-    for ( int i = s.size()-1; i>=0; i--)
+    string s("III");
+    const pair<int, string> valueSymbols[] = {
+           {1000, "M"},
+           {900, "CM"},
+           {500,  "D"},
+           {400, "CD"},
+           {100,  "C"},
+           {90,  "XC"},
+           {50,   "L"},
+           {40,  "XL"},
+           {10,   "X"},
+           {9,   "IX"},
+           {5,    "V"},
+           {4,   "IV"},
+           {1,    "I"}
+    };
+    int n = s.length();
+    int ans = 0;
+    for (int i = 0; i < n; ++i)
     {
-        for (int j = i; j < s.size(); j++)
-        {
-            cout << i << "+" << j << endl;
-            if (s[i] == s[j])
-            {
-                if (j - i <= 1)
-                {
-                    result++;
-                    dp[i][j] = true;
-                }
-                else if (dp[i+1][j-1])
-                {
-                    result++;
-                    dp[i][j] = true;
-                }
-                cout << result << "+" << i << "+" << j << endl;
-            }
-        }
-
+        cout << valueSymbols->first<< endl;
     }
-    cout << result << endl;
     return 0;
 }

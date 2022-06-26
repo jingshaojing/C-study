@@ -1,6 +1,7 @@
 // 机器人的运动范围，不能进入各坐标数字之和
 // 访问过的就设置flag为true，采用深度优先
 // 坐标各数字之和超过18的不能进入
+// 所以深度优先只需要从（0,0）开始，依次上下左右开始找能进入的，然后加就行。主函数中直接返回count就行。
 #include <iostream>
 #include <vector>
 using namespace std;

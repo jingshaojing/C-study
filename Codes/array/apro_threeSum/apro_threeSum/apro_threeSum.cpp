@@ -5,45 +5,38 @@ using namespace std;
 class solution
 {
 public:
-    int apro_threeSum(vector<int>& nums, int target)
+    vector<int>  apro_threeSum(vector<int>& nums)
     {
-        int min_gap = INT_MAX;
-        int result = 0;
         sort(nums.begin(), nums.end());
-        for (auto a = nums.begin(); a != prev(nums.end(),2); a++)
+        int slow = 0, fast = 1;
+        while (slow < fast && fast <= nums.size() -1)
         {
-            auto b = next(a);
-            auto c = prev(nums.end());
-            while (b < c)
+            if (nums[fast] != nums[slow])
             {
-                int sum = *a + *b + *c;
-                int gap = abs(sum - target);
-                if (gap < min_gap)
-                {
-                    min_gap = gap;
-                    result = sum;
-                }
-                if (sum < target) ++b;
-                else --c;
-
+                
+                nums[++slow] = nums[fast];
             }
-
+            //slow++;
+            fast++;
         }
-        cout << result << endl;
-        return result;
+        return nums;
+        
     }
 };
 int main()
 {
-    vector<int> numbers;
-    int target;
-    int value;
-    while (cin >> value)
+    vector<int> nums;
+    int number;
+    vector<int> result;
+    while (cin >> number)
     {
-        numbers.push_back(value);
+        nums.push_back(number);
         if (cin.get() == '\n') break;
     }
-    cin >> target;
-    solution().apro_threeSum(numbers, target);
+    result = solution().apro_threeSum(nums);
+    for (auto ch : result)
+    {
+        cout << ch << " ";
+    }
     return 0;
 }
